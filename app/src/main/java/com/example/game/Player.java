@@ -11,29 +11,28 @@ import java.lang.Math;
 
 public class Player implements GameObject {
     private Rect rectangle;
-    private Animation walkRight, walkleft;
-    private Animation idle;
     private AnimationManager animationManager;
-    private int speed = 15;
+    private int speed;
 
-    public Player() {
-        BitmapFactory bf = new BitmapFactory();
-        Bitmap idleImg = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
+    Player() {
+        speed = 15;
+        Bitmap idleImg = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.idle);
         this.rectangle = new Rect(100,100,200,200);
-        Bitmap walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
+        Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.walkright1);
-        Bitmap walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
+        Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.walkright2);
 
-        idle = new Animation(new Bitmap[]{idleImg}, 2);
-        walkRight = new Animation(new Bitmap[]{walk1, walk2}, 0.5f);
+        Animation idle = new Animation(new Bitmap[]{idleImg}, 2);
+        Animation walkRight = new Animation(new Bitmap[]{walk1, walk2}, 0.5f);
         Matrix m = new Matrix();
         m.preScale(-1,1);
         walk1 = Bitmap.createBitmap(walk1,0,0,walk1.getWidth(), walk1.getHeight(), m, false);
         walk2 = Bitmap.createBitmap(walk2,0,0,walk2.getWidth(), walk2.getHeight(), m, false);
-        walkleft = new Animation(new Bitmap[]{walk1, walk2}, 0.5f);
+        Animation walkleft = new Animation(new Bitmap[]{walk1, walk2}, 0.5f);
 
+        // All animation in Player
         animationManager = new AnimationManager((new Animation[]{idle, walkRight, walkleft}));
 
     }
@@ -49,7 +48,7 @@ public class Player implements GameObject {
         animationManager.update();
 
     }
-    public void update(Point point) {
+    void update(Point point) {
         double oldLeft = rectangle.left;
         float[] normal = new float[2];
         normal[0] = point.x - rectangle.centerX();
