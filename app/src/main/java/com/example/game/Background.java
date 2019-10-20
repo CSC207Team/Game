@@ -10,9 +10,8 @@ public class Background implements GameObject {
     private Animation idle;
     private AnimationManager animationManager;
 
-    public Background() {
-        BitmapFactory bf = new BitmapFactory();
-        Bitmap idleImg = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
+    Background() {
+        Bitmap idleImg = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.grass);
         this.rectangle = new Rect(0,0,Constants.DISPLAY_SIZE.x, Constants.DISPLAY_SIZE.y);
         idle = new Animation(new Bitmap[]{idleImg}, 2);
