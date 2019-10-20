@@ -7,7 +7,8 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.Paint;
+import android.view.Display;
+
 
 import java.lang.Math;
 
@@ -19,10 +20,13 @@ public class Player implements GameObject {
     private HealthBar healthBar;
 
     Player() {
+        Display display = ((MainActivity) Constants.CURRENT_CONTEXT).getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
         speed = 15;
         Bitmap idleImg = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.idle);
-        this.rectangle = new Rect(100, 100, 200, 200);
+        this.rectangle = new Rect(size.x/2 - 50, size.y - 50, size.x/2 + 50, size.y + 50);
         Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.walkright1);
         Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
