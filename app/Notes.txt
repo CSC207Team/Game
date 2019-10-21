@@ -1,3 +1,0 @@
-Step 1:
-Code Effected: All files.
-Description: Made a running base for the game. 

@@ -12,18 +12,18 @@ import android.view.Display;
 
 import java.lang.Math;
 
-public class Player implements GameObject {
+public class Monster implements GameObject {
     private Rect rectangle;
     private AnimationManager animationManager;
     private int speed;
     private int max_health = 100;
-    HealthBar healthBar;
+    private HealthBar healthBar;
 
-    Player() {
-        speed = 15;
+    Monster() {
+        speed = 5;
         Bitmap idleImg = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.idle);
-        this.rectangle = new Rect(Constants.DISPLAY_SIZE.x/2 - 50, Constants.DISPLAY_SIZE.y - 50, Constants.DISPLAY_SIZE.x/2 + 50, Constants.DISPLAY_SIZE.y + 50);
+        this.rectangle = new Rect(Constants.DISPLAY_SIZE.x/2 - 50, 50, Constants.DISPLAY_SIZE.x/2 + 50, 150);
         Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.walkright1);
         Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
@@ -44,7 +44,7 @@ public class Player implements GameObject {
         Point p = new Point();
         p.x = this.rectangle.centerX();
         p.y = this.rectangle.centerY() - (idleImg.getWidth()/2);
-        healthBar = new HealthBar(max_health, p, Color.GREEN, 100);
+        healthBar = new HealthBar(max_health, p, Color.RED, 100);
     }
 
     @Override
@@ -61,12 +61,15 @@ public class Player implements GameObject {
 
     }
 
-    void update(Point point) {
+    void update(Player player) {
         double oldLeft = rectangle.left;
         float[] normal = new float[2];
-        normal[0] = point.x - rectangle.centerX();
-        normal[1] = point.y - rectangle.centerY();
+        normal[0] = player.get_center_location().x - rectangle.centerX();
+        normal[1] = player.get_center_location().y - rectangle.centerY();
         float magnitude = (float) Math.sqrt(normal[0] * normal[0] + normal[1] * normal[1]);
+        if (magnitude <= 50){
+            player.healthBar.take_damage(1); //NEEDS SOME REVISION!!!!
+        }
         if (magnitude < speed) {
             animationManager.playAnimation(0);
             return;
@@ -93,9 +96,5 @@ public class Player implements GameObject {
         animationManager.playAnimation(state);
         animationManager.update();
 
-    }
-
-    Point get_center_location() {
-        return new Point(rectangle.centerX(), rectangle.centerY());
     }
 }

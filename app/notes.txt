@@ -1,0 +1,7 @@
+Step 1:
+Code Effected: All files.
+Description: Made a running base for the game.
+
+Step 2:
+Code Effected: Player, Monster, Healthbar, GamePanel.
+Description: Added a Monster class. Player's now take damage when close to a Monster.
