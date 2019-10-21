@@ -17,7 +17,7 @@ public class MainThread extends Thread{
         this.gamePanel = gamePanel;
     }
 
-    public void setRunning(boolean running) {
+    void setRunning(boolean running) {
         this.running = running;
     }
 
@@ -59,7 +59,7 @@ public class MainThread extends Thread{
                 averageFPS = 1000/((totalTime/frameCount)/1000000);
                 frameCount = 0;
                 totalTime = 0;
-                //System.out.println(averageFPS);
+                System.out.println("Current FPS: " + averageFPS);
             }
         }
 
