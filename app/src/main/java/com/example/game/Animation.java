@@ -5,14 +5,14 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.Paint;
 
-public class Animation {
+class Animation {
     private Bitmap[] frames;
     private int frameIndex;
     private boolean isPlaying = false;
     private float frameTime;
     private long lastFrame;
 
-    public Animation(Bitmap[] frames, float animationTime) {
+    Animation(Bitmap[] frames, float animationTime) {
         this.frames = frames;
         frameIndex = 0;
         frameTime = animationTime / frames.length;
@@ -20,21 +20,21 @@ public class Animation {
     }
 
 
-    public boolean isPlaying() {
+    boolean isPlaying() {
         return isPlaying;
     }
 
-    public void play() {
+    void play() {
         frameIndex = 0;
         isPlaying = true;
         lastFrame = System.currentTimeMillis();
     }
 
-    public void stop() {
+    void stop() {
         isPlaying = false;
     }
 
-    public void update() {
+    void update() {
         if (!isPlaying) {return;}
         if (System.currentTimeMillis() - lastFrame > frameTime * 1000) {
             frameIndex++;
@@ -43,7 +43,7 @@ public class Animation {
         }
     }
 
-    public void draw(Canvas canvas, Rect destination) {
+    void draw(Canvas canvas, Rect destination) {
         if(!isPlaying) {return;}
         canvas.drawBitmap(frames[frameIndex],null, destination, new Paint());
     }

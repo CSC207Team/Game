@@ -12,7 +12,7 @@ public class HealthBar implements GameObject {
     private Paint paint;
     private int length;
 
-    public HealthBar(int max_health, Point point, int color, int length) {
+    HealthBar(int max_health, Point point, int color, int length) {
         this.rectangle = new Rect(point.x - length / 2, point.y, point.x + length / 2, point.y - 5);
         paint = new Paint();
         paint.setColor(color);
@@ -34,24 +34,20 @@ public class HealthBar implements GameObject {
     }
 
 
-    public void move(int move_x, int move_y) {
+    void move(int move_x, int move_y) {
         rectangle.set((rectangle.centerX() + move_x) - rectangle.width() / 2,
                 (rectangle.centerY() + move_y) - rectangle.height() / 2,
                 (rectangle.centerX() + move_x) + rectangle.width() / 2,
                 (rectangle.centerY() + move_y) + rectangle.height() / 2);
-        take_damage(1); // Completely unnecessary :D
     }
 
-    public void take_damage(int dmg) {
+    void take_damage(int dmg) {
         curr_health -= dmg;
         curr_health = Math.max(0, curr_health);
         float scale = ((float) curr_health / (float) max_health) * length;
-        int change = rectangle.right - (rectangle.left + (int) (scale));
-        rectangle.right = rectangle.left + (int) (scale);
-        rectangle.set(rectangle.left + change,
-                rectangle.top,
-                rectangle.right + change,
-                rectangle.bottom);
+        int change = (rectangle.right - (rectangle.left + (int) (scale)))/2;
+        rectangle.right = rectangle.right - change;
+        rectangle.left = rectangle.left + change;
 
     }
 }
