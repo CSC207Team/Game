@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.view.Display;
 
 
 import java.lang.Math;
@@ -23,7 +22,9 @@ public class Player implements GameObject {
         speed = 15;
         Bitmap idleImg = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.idle);
-        this.rectangle = new Rect(Constants.DISPLAY_SIZE.x/2 - 50, Constants.DISPLAY_SIZE.y - 50, Constants.DISPLAY_SIZE.x/2 + 50, Constants.DISPLAY_SIZE.y + 50);
+        this.rectangle = new Rect(Constants.DISPLAY_SIZE.x/2 - 50,
+                Constants.DISPLAY_SIZE.y - 50, Constants.DISPLAY_SIZE.x/2 + 50,
+                Constants.DISPLAY_SIZE.y + 50);
         Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.walkright1);
         Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
@@ -44,7 +45,7 @@ public class Player implements GameObject {
         Point p = new Point();
         p.x = this.rectangle.centerX();
         p.y = this.rectangle.centerY() - (idleImg.getWidth()/2);
-        healthBar = new HealthBar(max_health, p, Color.GREEN, 100);
+        healthBar = new HealthBar(max_health, p, Color.GREEN, 150);
     }
 
     @Override

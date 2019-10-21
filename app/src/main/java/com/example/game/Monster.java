@@ -18,9 +18,11 @@ public class Monster implements GameObject {
     private int speed;
     private int max_health = 100;
     private HealthBar healthBar;
+    private int damage;
 
     Monster() {
         speed = 5;
+        damage = 1;
         Bitmap idleImg = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),
                 R.drawable.idle);
         this.rectangle = new Rect(Constants.DISPLAY_SIZE.x/2 - 50, 50, Constants.DISPLAY_SIZE.x/2 + 50, 150);
@@ -67,8 +69,8 @@ public class Monster implements GameObject {
         normal[0] = player.get_center_location().x - rectangle.centerX();
         normal[1] = player.get_center_location().y - rectangle.centerY();
         float magnitude = (float) Math.sqrt(normal[0] * normal[0] + normal[1] * normal[1]);
-        if (magnitude <= 50){
-            player.healthBar.take_damage(1); //NEEDS SOME REVISION!!!!
+        if (magnitude <= 100){
+            player.healthBar.take_damage(this.damage); //NEEDS SOME REVISION!!!!
         }
         if (magnitude < speed) {
             animationManager.playAnimation(0);
